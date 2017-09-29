@@ -174,14 +174,19 @@ s_i = \left( \tilde{w_1}, \tilde{w_2}, \tilde{w_3} \right)
 \text{where } \tilde{w_1}, \tilde{w_2}, \tilde{w_3} \, \epsilon \, W
 \end{equation*}
 
-Also used in the construction of the concurrence matrix is a distance function, $d(s_i, \set{\tilde{w_j}, \tilde{w_k}})$, whose parameters are a sequence of words, $s_i$, in $S$ (corresponding to a sentence of the corpus) and a set or an unordered pair of words that are members of the sequence $s_i$. For example using the $i^{\text{th}}$ sentence in the corpus again and a random ordered pair from that sequence $\set{\tilde{w_2}, \tilde{w_3}} = \set{"made", "mud"}$
+Also used in the construction of the concurrence matrix is a distance function, $d(s_i, \set{\tilde{w_j}, \tilde{w_k}})$, whose parameters are a sequence of words, $s_i$, in $S$ (corresponding to a sentence of the corpus) and a set or an unordered pair of words that are members of the sequence $s_i$. For example using the $i^{\text{th}}$ sentence in the corpus again and a random pair from that sequence $\set{\tilde{w_2}, \tilde{w_3}} = \set{"made", "mud"}$
 
 \begin{equation*}
 d(s_i, \set{\tilde{w_2}, \tilde{w_3}}) = d(\set{"God", "made", "mud"}, \set{\text{"made"}, \text{"mud"}})
 \end{equation*}
+\begin{equation*}
+\text{It is important to note that although }\, \tilde{w_2}, \tilde{w_3} \, \epsilon \, W \, 
+\end{equation*}
+\begin{equation*}
+\text{ it is not necessarily true that } \, \tilde{w_2} = w_2 \, \text{ or } \, \tilde{w_3} = w_3.
+\end{equation*}
 
-
-It is important to note that although $\tilde{w_2}$, $\tilde{w_3} \, \epsilon \, W$ it is not necessarily true that $\tilde{w_2} = w_2$ or $\tilde{w_3} = w_3$. The distance function, $d(s_i, \set{\tilde{w_j}, \tilde{w_k}})$, returns a value one more than the number of words between the word pair, $\set{\tilde{w_j}, \tilde{w_k}}$, in sentence corresponding to the sequence, $s_i$.
+The distance function, $d(s_i, \set{\tilde{w_j}, \tilde{w_k}})$, returns a value one more than the number of words between the word pair, $\set{\tilde{w_j}, \tilde{w_k}}$, in sentence corresponding to the sequence, $s_i$.
 
 \begin{equation*}
 d(s_i, \set{\tilde{w_j}, \tilde{w_k}}) = \mid j - k \mid
@@ -226,48 +231,76 @@ a_{ij} = a_{ji},
 %
 
 \section{Details of Word Vectors and Word Vector Matrix}
-%defining n word vectors of dimensionality d
-%Defining soft constraint of equality
-Next we search for a set of $n$ word vectors, $\vec{w}_{i},\ldots ,\vec{w}_{n}$ , of dimensionality $v$ that best satisfy the condition that the inner product between any two word vectors is a value close to the two elements in matrix $\mate{A}$ corresponding to the two words intersection. We exclude the diagonal elements from meeting this condition which correspond to the intersection of one word with itself. We will represent the desired $n$ word vectors as the column vectors of a matrix $\mat{W}{v}{n}$.
 
-  \begin{align*}
-    \mat{W}{v}{n} &= \begin{pmatrix}
-    	\begin{bmatrix} \vec{w}_{1} \end{bmatrix} , \ldots , \begin{bmatrix} \vec{w}_{n}\end{bmatrix}
-	 \end{pmatrix}
-  \end{align*}
+%defining soft constraint of equality
+\paragraph{Defining Constraints} The soft constraints imposed states that for any given word vector pair, $\vec{\tilde{w}}_{i}$ and $\vec{\tilde{w}}_{j}$, excluding duplicate pairs, $\vec{\tilde{w}}_{i}$ and $\vec{\tilde{w}}_{i}$, their inner product will yield a value close to the two values in the co-occurrence matrix associated with those two words. This constraint can be written as
+		
+		%constraint and word vectors
+		\begin{equation*}
+			\vec{w}_{i} \cdot \vec{w}_{j}^T \logeq f(w_i,w_j) = a_{ij}
+		\end{equation*}
+		
+Since $\mate{A}$ is symmetric order does not matter when taking the inner product of two word vectors
+		\begin{equation*}
+			\vec{w}_{i}^T \cdot \vec{w}_{j} = \vec{w}_{j}^T \cdot \vec{w}_{i}
+		\end{equation*}
+		
+		Therefore,
+		
+		\begin{equation*}
+			\vec{w}_{i} \cdot \vec{w}_{j}^T = \vec{w}_{i}^T \cdot \vec{w}_{j} \, \logeq \, a_{ij} = a_{ji}
+		\end{equation*}
+		
+		If the desired word vectors, $\left( \vec{w}_{1}, \ldots, \vec{w}_{n} \right)$, are written as the columns of some "Word Vector Matrix", $\mate{W}$, then this constraint can be written as
+		
+		%constraint and word vector matrix
+		\begin{equation*}
+			\mate{W}\mate{W}^T \logeq \mate{A}
+		\end{equation*}
+		
+		\begin{equation*}
+			\text{where } \, \mate{W} \, \text{ is written as, }
+		\end{equation*}
+		
+		\begin{equation*}
+			\mat{W}{n}{v} = 
+			\begin{pmatrix}
+				\vec{w}_{1} \\
+				\vdots \\
+				\vec{w}_{n}
+			\end{pmatrix}
+		\end{equation*}
+		
+		\begin{equation*}
+			\text{and where } \, v \, \text{ is the dimensionality of the word vectors (not yet specified).}
+		\end{equation*}
 
-In order to formally define the properties of the word vectors we wish to find, we write a set of $\frac{n^2 - n}{2}$ soft constraints, $C = \set{c_{12},c_{13},\cdots ,c_{n \choose 2}}$, as
-\begin{equation*}
-c_{ij} \equiv \vec{w}_{i}^T \cdot \vec{w}_{j} \logeq a_{ij} \text{, where $i \neq j$.}
-\end{equation*}
 
-\begin{equation*}
-\text{where } \frac{n^2 - n}{2} \text{ is the number of non-diagonal elements in the matrix } \mate{A}.
-\end{equation*}
-However, order does not matter for the constraints when taking the inner product of two word vectors as $\mate{A}$ is symmetric about its diagonal and 
+%note about number of super upertriangular elements
+%\begin{equation*}
+%\text{where } \frac{n^2 - n}{2} \text{ is the number of non-diagonal elements in the matrix } \mate{A}.
+%\end{equation*}
 
-\begin{equation*}
-\vec{w}_{i}^T \cdot \vec{w}_{j} = \vec{w}_{j}^T \cdot \vec{w}_{i}
-\end{equation*}
 
-\begin{equation*}
-a_{ij} = a_{ji}
-\end{equation*}
+%
+%	Stochastic Gradient Decent
+%
+
+\section{Decomposition using Stochastic Gradient Descent}
+
+	An iterative optimization method used to minimize an objective function. Stochastic Gradient Descent (SGD) is often used over Batch Gradient Decent (BGD) for large noisy datasets. Our implementation of SGD Draws heavily on the implementations by "Word2vec" and "GloVe".
 
 
 %Error function between two word vectors
-\text{We define an error function, $\varepsilon$, between two word vectors, $\vec{w}_{i}$ and $\vec{w}_{j}$, as}
+The definition of an error function, $\varepsilon$, between two word vectors, $\vec{w}_{i}$ and $\vec{w}_{j}$, based on the soft constraints chosen is
 \begin{equation*}
 \varepsilon(i,j) = \vec{w}_{i}^T \cdot \vec{w}_{j} - a_{ij}
 \end{equation*}
-\begin{equation*}
-\text{where $a_{ij}$ is an element in the Matrix $\mate{A}$}
-\end{equation*}
 
 %Objective function J for entire dataset
-The method we choose to find the values of the matrix $\mate{W}$ is \textbf{Stochastic Gradient Descent}. We define an objective function, $J$, to minimize as
+The chosen objective function, $J$, to minimize during the optimization process is
 \begin{equation*}
-J = \frac{1}{2 {n \choose 2} } \sum_{r=1}^{n}{\sum_{c=r+1}^{n}{
+J = \frac{1}{ {n \choose 2} } \sum_{r=1}^{n}{\sum_{c=r+1}^{n}{
 \begin{cases}
 \varepsilon(r,c)^2, \, if \, r \neq c
 \\
@@ -276,10 +309,14 @@ J = \frac{1}{2 {n \choose 2} } \sum_{r=1}^{n}{\sum_{c=r+1}^{n}{
 }}
 \end{equation*}
 
-When $J$ is at a minimum then the column vectors of $\mate{W}$ will best meet our set of soft constraints, $C$.
+\begin{equation*}
+\text{where } \frac{n^2 - n}{2} = {n \choose 2} \text{ is the number of upper-triangular non-diagonal elements in the matrix } \mate{A}.
+\end{equation*}
+
+When $J$ is at a minimum then the $\mate{W}$ will best meet our soft constraint.
 
 %Defining an objective function for a specific word vector
-We next define an individual objective function for each word vector, $J_{\vec{w}_{i}}$. During the optimization process, and during each iteration, we randomly select a column vector of $\mate{W}$, $\vec{w_i}$, to update by computing the gradient of the chosen individual word vector, $\frac{\partial J_{\vec{w}_{i}}}{\partial \vec{w}_{i}}$. We define the objective function for an individual word vector, $\vec{w}_{i}$,  as
+Next is the definition an individual objective function for each word vector, $J_{\vec{w}_{i}}$. During the optimization process, and during each iteration, we randomly select a column vector of $\mate{W}$, $\vec{w_i}$, to update by computing the gradient of the chosen individual word vector, $\frac{\partial J_{\vec{w}_{i}}}{\partial \vec{w}_{i}}$. We define the objective function for an individual word vector, $\vec{w}_{i}$,  as
 \begin{equation*}
 J_{\vec{w}_{i}} = \frac{1}{2} \sum_{j=1}^{n} {\begin{cases}
 \varepsilon(i,j)^2, \, if \, i \neq j
