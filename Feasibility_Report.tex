@@ -1,0 +1,175 @@
+
+
+\title{Automated Text Analytics And Summarization API Feasibility Report}
+\author{
+        Robert Rash \\
+        Stefan Popov\\
+        L.J. Brown \\\\
+        https://github.com/browlm13/Word-Embedding/
+}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage{enumitem}
+\setlist{parsep=0pt,listparindent=\parindent}
+\usepackage{url}
+\usepackage{siunitx,hyperref,lipsum}
+\usepackage{xcolor}            % specify colors by name (e.g. "red")
+\usepackage{hyperref}          % clickable URls and cross-references
+\hypersetup{
+	colorlinks=true,
+	urlcolor={blue!80!black},
+    pdfborderstyle={/S/U/W 1}, % underline links instead of boxes
+    linkbordercolor=red,       % color of internal links
+    citebordercolor=green,     % color of links to bibliography
+    filebordercolor=magenta,   % color of file links
+    urlbordercolor=blue        % color of external links
+}
+\begin{document}
+\maketitle
+
+%We present a software tool that employs state-ofthe-art
+%natural language processing (NLP) and machine
+%learning techniques to help newspaper editors
+%compose effective headlines for online publication.
+%The system identifies the most salient keywords in
+%a news article and ranks them based on both their
+%overall popularity and their direct relevance to the
+%article. The system also uses a supervised regression
+%model to identify headlines that are likely to
+%be widely shared on social media. The user interface
+%is designed to simplify and speed the editor’s
+%decision process on the composition of the headline.
+%As such, the tool provides an efficient way
+%to combine the benefits of automated predictors of
+%engagement and search-engine optimization (SEO)
+%with human judgments of overall headline quality.
+
+%
+%	Executive Summary
+%
+
+\section{Executive Summary}
+
+The following proposed system is intended for automated content generation, and the filtering and tagging of text data. Our system is a software tool that utilizes natural language processing and machine learning techniques geared predominantly to aid social media publishers and newspaper editors in quicker turnarounds in the areas of content posting and online publications. Our system will identify keywords within a text and rank them based on their relevance. We aim to also provide a reduced size text containting the most relevant information from the input data. Our product will include a python library, a web API and a web front-end with a graphical user interface for the use of summarization, analytics and tagging of text documents. The uses of our proposed system include but are not limited too:
+\begin{enumerate}
+	\item Automated tagging of news articles
+	\item Automated posting of content to social media, news outlets and forums
+	\item Spam filtering
+	\item Analysis of Social Media
+\end{enumerate}
+
+The intended clients of the proposed system include but are not limited too:
+\begin{enumerate}
+	\item Media Sites
+	\item Publishers
+	\item Developers of Content Bots
+	\item Reasearchers
+\end{enumerate}
+
+Although our ultimate goal is to expand to a wide variety of clients, the initial design will focus predominantly on a subset of the clients listed above. Our initial designs will be geared towards clients in fields related to online newspapers, media portals, and social media websites. We will refer to this subset of clients as our primary clients. The goal of the system will be to provide automation tools to aid in sorting, tagging and summarizing text data. Our initial focus will be on the automated tagging system which will suggest the main subjects and keywords based on an analysis of raw text. Our ultimate goal is to implement a summarization feature which will reduce the raw text input to a user specified length.
+
+%
+%	PRELIMINARY REQUIREMENTS ANALYSIS
+%
+
+\section{Preliminary Requirements Analysis}
+
+\paragraph{Objectives}
+The objective will be to provide automation tools to aid in sorting, tagging and summarizing text data in the form of a python library, web API, and web front-end.
+
+\paragraph{Business Objectives}
+The project aims to reduce costs, and provide our primary clients with more efficient tools to publish content. The hope is that our API will enable writers and publishers to track and search for desired content more efficiently, by reducing our users workload and increasing the efficiency of reference-related activities and report generation. A working prototype will be developed, tested, and implemented in time to be deployed by the end of the academic semester (December 2017).
+
+%
+%	Functional Requirements
+%
+
+\section{Functional Requirements}
+
+\paragraph{Statement of Functionality}
+
+\paragraph{Non-functional requirements}
+
+\paragraph{Optional Features}
+
+%
+%	Functional Requirements
+%
+
+\section{Scope}
+
+%
+%	Approach
+%
+
+\section{Approach}
+
+The development team will follow an Agile approach, consisting of three 3-week sprints, each of which will result in deployable code and will be used to refine requirements based on feedback from the client and users.
+
+\paragraph{Milestones}
+Our milestones...
+
+%
+%	Technical Feasibility 
+%
+
+\section{Technical Feasibility }
+We will discus both extractive and abstractive methods for use in our text analysis, tagging and summarization system. We will outline possible extractive methods for identifying key subjects and providing a summary of text that have been successful in the past. However, our ultimate goal is to implement as many abstractive solutions to these problems as possible. As abstractive methods for data mining and natural language processing are still in their infancy, the requirements and technical feasibility for abstractive based methods are not as clear.
+
+\paragraph{Requirments}
+\begin{enumerate}
+	\item 
+		\textbf{Sentence Boundary Disambiguation}\\
+		Operating on individual sentences is useful for a number of our natural language processing methods. Unfortunately, locating the boundries of sentences in natural language is a challenge because of the ambiguity of punctuation marks. 
+		
+	\item 
+		\textbf{Stop Word Removal}\\
+		Analysis of core content in text is often easier when words of little value are removed. "Stop words" usually refer to the most common words in a natural language, however the list of words that fall under this category is ambiguous.
+
+	\item 
+		\textbf{Word Stemming}\\
+		In order to perform operations such as word frequency distribution, it is often useful to reducing inflected or derived words to their root (stem).
+		
+	\item 
+		\textbf{Word Similarities Measures}\\
+		There are many uses for measurements of word similarity in natural language processing. On extractive method for grouping words into lexical categories described bellow. Other extractive method for grouping similar words make use of thesaurus, dictionaries and other data mined from online sources. The abstractive method that we focus on is called "Word Embedding" and is described bellow.
+		
+	\item 
+		\textbf{Parts of Speech Identification}\\
+		It is useful for many methods of natural language analysis to group words lexical categories. Some of these categories could include parts of speech.
+
+
+	\item 
+		\textbf{Local Versus Global Word Frequency Distributions}\\
+		Identification of word frequencies in an individual text relative to other text has many useful applications in natural language processing. One such method is Term Frequency–Inverse Document Frequency.
+		
+
+	\item 
+		\textbf{Term Frequency–Inverse Document Frequency}\\
+TF-ID is a numerical statistic intended to reflect the importance a word relative to a document. This statistic is often used as a weighting factor for search, user modeling, information retrieval, and text mining. The value is proportional to the number of frequency of a word in a particular document, and inversely proportional to the frequency of the word in the corpus.
+
+	\item 
+		\textbf{Sentence Ranking}\\
+		The need for solid sentence ranking algorithms based on importance to a document or search query perhaps one of highest importance in modern natural language processing. Extractive methods tend to rank sentences in a document based on keyword identification from metrics such as TF-ID. Abstractive methods for sentence ranking is still a new area of research.
+
+	\item 
+		\textbf{Word Embedding}\\
+		Word Embedding refers to a set of abstractive natural language modeling and feature learning techniques where words and or phrases are mapped to a vector space. Word Embedding can be used to measure word similarities and is a major focus of our project. We propose several possible methods in our \href{https://github.com/browlm13/Word-Embedding/blob/master/word_embedding_mock_1_v3.pdf}{paper located on Github}. In the same Github repository we have our current code testing the core ideas behind these methods which provide promising results.
+
+	\item 
+		\textbf{Sentence Reduction}\\
+		Sentence reduction is difficult with extractive methods and there are currently only moderately successful abstractive methods for sentence reduction.
+		
+	\item 
+		\textbf{Text Summarization}\\
+The process of shortening a text document in order to create a summary with the major points of the original text document. Automated text summarization is generally abstractive and is involves elements of machine learning and data mining. The main goal is to find a subset of data which contains the most core information of the entire set. 
+
+\end{enumerate}
+
+In conclusion, there is at least one technically feasible solution to the proposed system using extractive methods. This feasible system would consist of a web front-end and API based on a python library. The python library may use extractive techniques to identify important words to a document such as TF-IF and rank sentences based on the number of keywords occurring in them. A summary can be produced which returns only the highest ranked sentences in a text document. \href{https://github.com/browlm13/Word-Embedding/blob/master/word_embedding_mock_1_v3.pdf}{Additionally we believe the word embedding systems we have explored and began testing are promising}. We are hope full to implement additional abstractive methods but the project is not reliant on them. 
+
+\bibliographystyle{abbrv}
+\bibliography{main}
+
+\end{document}
