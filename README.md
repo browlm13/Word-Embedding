@@ -2,7 +2,7 @@
 LJ Brown
 ## Experiments With Word Embedding 
 
-In this repository we test diffrent techniques to map all unique words found in a corpus to vectors in a continuous vector space. The idea, and hope, is that some relationships between words found in the corpus will be preserved through this mapping and will manifest as characteristics of the vector space.
+In this repository we test diffrent techniques to map all unique words found in a corpus to vectors in a continuous vector space. The idea, and hope, is that some relationships between words found in the corpus will be preserved through this mapping and will manifest as characteristics of the vector space. [More Information On Vector Representations Of Words](https://www.tensorflow.org/tutorials/word2vec)
 
 1. Build a co-occurrence matrix from a corpus which represents how frequently word pairs occur together.
 
