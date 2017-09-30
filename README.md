@@ -12,4 +12,4 @@ Methods implimented in this repository for decomposing the cooccurence matrix in
 
 * Stochastic Gradient Descent, which draws heavily on the implementations by "Word2vec" and "GloVe"
 
-* With experimental methods using Eigen Decomposition and Singular Value Decomposition.
+* Methods usgin Eigen Decomposition and Singular Value Decomposition.
